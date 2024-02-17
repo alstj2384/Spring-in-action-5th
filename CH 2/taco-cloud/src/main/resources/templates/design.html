@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
@@ -43,9 +44,9 @@
         </div>
 
 
-        <div class="ingredient-group" id="vaggies">
+        <div class="ingredient-group" id="veggies">
             <h3>Determine your vaggies:</h3>
-            <div th:each="ingredient : ${vaggie}">
+            <div th:each="ingredient : ${veggies}">
                 <input name = "ingredients" type = "checkbox" th:value="${ingredient.id}"/>
                 <span th:text="${ingredient.name}">INGREDIENT</span><br/>
             </div>

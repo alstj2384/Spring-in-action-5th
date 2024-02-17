@@ -1,9 +1,12 @@
 package tacos.web;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tacos.Ingredient;
 import tacos.Ingredient.Type;
@@ -17,8 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequestMapping("/design")
 public class DesignTacoController {
-
-    @GetMapping
+    @GetMapping // Ch 2
     public String showDesignForm(Model model){
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
@@ -44,7 +46,17 @@ public class DesignTacoController {
         return "design";
     }
 
-    private List<Ingredient> filterByType(
+    @PostMapping // Ch 2
+    public String processDesign(@Valid Taco design, Errors errors){
+        if(errors.hasErrors()){
+            return "design";
+        }
+        log.info("Processing design: " + design);
+
+        return "redirect:/orders/current";
+    }
+
+    private List<Ingredient> filterByType( // Ch 2
             List<Ingredient> ingredients, Type type) {
         return ingredients
                 .stream()
